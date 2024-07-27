@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        form {
+            width: 90vw;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: rgb(249, 213, 198);
+            border: 4px solid snow;
+            border-radius: 30px;
+            box-shadow: 0 0 10px 5px rgb(223, 223, 223);
+        }
+
+        h2 {
+            color: rgb(81, 25, 7);
+            font-size: 40px;
+        }
+
+        #my_input {
+            width: 300px;
+            height: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        #btn {
+            width: 300px;
+            height: 30px;
+            border-radius: 20px;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            background-color: rgb(255, 137, 59);
+            border: 2px solid rgb(171, 43, 29);
+            font-weight: bold;
+        }
+        #btn_again{
+            width: 100px;
+            height: 30px;
+            border-radius: 20px;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            background-color: rgb(125, 171, 81);
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <h2>終極密碼</h2>
+        <input type="number" id="my_input" placeholder="請輸入1~100的數字">
+        <button id="btn" type="button">送出</button>
+        <div id="result"></div>
+        <div id="tip"></div>
+        <div id="remind"></div>
+        <button id="btn_again" type="reset">再次出題</button>
+    </form>
+
+    <script>
+        let btn = document.querySelector('#btn');
+        let com = (Math.floor(Math.random() * 100 + 1));
+        console.log(com);
+        let result = document.querySelector('#result');
+        let tip = document.querySelector('#tip');
+        let remind = document.querySelector('#remind');
+        let btn_again = document.querySelector('#btn_again');
+        let start_num = 1;
+        let end_num = 100;
+
+
+
+        btn.addEventListener('click', function () {
+            let input = document.querySelector('#my_input').value;
+            console.log(com);
+            if(input == ''){
+                alert('輸入框不可為空');
+            }else if(input < start_num || input > end_num){
+                alert('請輸入1~100的數字');
+            }else if (com == input) {
+                result.innerHTML = '恭喜答對!!';
+                tip.innerHTML = '';
+            } else if (com > input && input > 0) {
+                tip.innerHTML = '正確數字介於' + input + '至' + end_num;
+                start_num = input;
+            } else if (com < input && input <= 100) {
+                tip.innerHTML = '正確數字介於' + start_num + '至' + input;
+                end_num = input;
+            } else {
+                remind.innerHTML = '請輸入1~100之間的整數';
+            };
+        });
+
+        btn_again.addEventListener('click', function () {
+            com = (Math.floor(Math.random() * 100 + 1));
+            console.log(com);
+            result.innerHTML = '';
+            tip.innerHTML = '';
+        });
+    </script>
+</body>
+
+</html>
